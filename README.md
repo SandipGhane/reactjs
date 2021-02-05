@@ -2,8 +2,8 @@
 
 ### Step-1
 ```
-it is same as reducer function in Redux.
-1. create a Provider using React.createContext()
+it is the same as reducer function in Redux.
+1. create a Provider using React.createContext().
 2. pass state and functions to the 'value' object.
 ```
 
@@ -48,7 +48,7 @@ class MyProvider extends Component {
 ### step-2
 
 ```
-1. Wrapped all components thats need to an global state.
+1. Wrapped all components thats need to a global state.
 ```
 
 ```
@@ -61,7 +61,7 @@ class MyProvider extends Component {
 
 ### step-3
 ```
-1. Get global state in any coponents thats wrapped in Provder.
+1. Get global state in any coponents thats wrapped in Provider.
 and manipulates state easily.
 ```
 
