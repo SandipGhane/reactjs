@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+## Context in React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Step-1
+```
+it is same as reducer function in Redux.
+1. create a Provider using React.createContext()
+2. pass state and functions to the 'value' object.
+```
 
-## Available Scripts
+```
+class MyProvider extends Component {
+    state = {
+        cars: {
+            car001: { name: 'Honda', price: 100 },
+            car002: { name: 'BMW', price: 150 },
+            car003: { name: 'Mercedes', price: 200 }
+        }
+    }
+    render() {
+        return (
+            <MyContext.Provider
+                value={{
+                    cars: this.state.cars,
+                    incrementPrice: selectedID => {
+                        const cars = Object.assign({}, this.state.cars);
+                        cars[selectedID].price = cars[selectedID].price + 1;
+                        this.setState({
+                            cars
+                        });
+                    },
+                    decrementPrice: selectedID => {
+                        const cars = Object.assign({}, this.state.cars);
+                        cars[selectedID].price = cars[selectedID].price - 1;
+                        this.setState({
+                            cars
+                        });
+                    }
+                }}
+            >
+                {this.props.children}
+            </MyContext.Provider>
+        );
+    }
 
-In the project directory, you can run:
+}
+```
 
-### `npm start`
+### step-2
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+1. Wrapped all components thats need to an global state.
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+<MyProvider>
+    <Comp-1/>
+    <Comp-2/>
+    <Comp-3>
+</MyProcider>
+```
 
-### `npm test`
+### step-3
+```
+1. Get global state in any coponents thats wrapped in Provder.
+and manipulates state easily.
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+ <MyContext.Consumer>
+        {
+            context => (
+                <React.Fragment>
+                    <h4>Cars:</h4>
+                    {Object.keys(context.cars).map(carID => (
+                        <Car
+                            key={carID}
+                            name={context.cars[carID].name}
+                            price={context.cars[carID].price}
+                            incrementPrice={() => context.incrementPrice(carID)}
+                            decrementPrice={() => context.decrementPrice(carID)}
+                        />
+                    ))}
+                </React.Fragment>
+            )
+        }
+    </MyContext.Consumer>
+```
