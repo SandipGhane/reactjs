@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import MyProvider from './MyProvider';
+// import MyProvider from './MyProvider';
 import ProductList from './ProductList';
 // import Middle from './Middle';
+const MyProvider = React.lazy(() => import('./MyProvider'));
 class App extends Component {
   render() {
     return (
