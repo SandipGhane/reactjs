@@ -3,11 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import ThemeContext from './MyContext';
 
+
+// const ThemeContext = React.createContext("Night");
 ReactDOM.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <ThemeContext.Provider value={"Day"}>
+      <App />
+    </ThemeContext.Provider>
+  </React.StrictMode >,
   document.getElementById('root')
 );
 
