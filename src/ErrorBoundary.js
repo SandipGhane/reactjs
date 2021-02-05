@@ -7,8 +7,8 @@ class ErrorBoundary extends Component {
     static getDerivedStateFromError() {
         return { hasError: true }
     }
-    componentDidCatch(err,errInfo){
-         logErrorToMyService(err, errInfo);
+    componentDidCatch(err, errInfo) {
+        // throw new Error(err, errInfo);
     }
     render() {
         if (this.state.hasError) {
