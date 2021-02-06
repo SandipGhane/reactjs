@@ -5,6 +5,7 @@ import MyProvider from './MyProvider';
 // import MyProvider from './MyProvider';
 import ProductList from './ProductList';
 // import Middle from './Middle';
+import EmailRef from './forwordRef';
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
               <h1 className="App-title">Welcome to my web store</h1>
             </header> */}
             <ProductList />
+            <EmailRef />
           </div>
         </MyProvider>
 
